@@ -1,13 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-const UserData = ({ user }) => {
+const UserData = () => {
+  const user = useSelector((state) => state.user);
   return (
     <div>
       <div>username:{user.username}</div>
@@ -16,4 +11,4 @@ const UserData = ({ user }) => {
   );
 };
 
-export default connect(mapStateToProps)(UserData);
+export default UserData;

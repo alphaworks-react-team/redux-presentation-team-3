@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+
 import { fetchUsers } from "../Redux/Actions";
+import { useSelector, useDispatch } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    apiUsers: state.apiUsers,
-  };
-};
+const AsyncUsers = () => {
+  const apiUsers = useSelector((state) => state.apiUsers);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-  };
-};
-
-const AsyncUsers = ({ apiUsers, fetchUsers }) => {
   useEffect(() => {
-    fetchUsers();
+    dispatch(fetchUsers());
   }, []);
+
   return (
     <div>
       {apiUsers.loading ? (
@@ -37,4 +30,4 @@ const AsyncUsers = ({ apiUsers, fetchUsers }) => {
     </div>
   );
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AsyncUsers);
+export default AsyncUsers;

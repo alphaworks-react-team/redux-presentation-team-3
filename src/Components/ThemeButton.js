@@ -1,33 +1,23 @@
 import React from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
 import { changeTheme } from "./../Redux/Actions/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const Button = styled.button`
   background-color: ${(props) => (props.theme === true ? "black" : "white")};
   color: ${(props) => (props.theme === true ? "white" : "black")};
 `;
 
-const mapStateToProps = (state) => {
-  return {
-    theme: state.theme,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeTheme: () => dispatch(changeTheme()),
-  };
-};
-
-const ThemeButton = ({ theme, changeTheme }) => {
+const ThemeButton = () => {
+  const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
   return (
     <div>
-      <Button theme={theme} onClick={() => changeTheme()}>
+      <Button theme={theme} onClick={() => dispatch(changeTheme())}>
         Click Me!
       </Button>
     </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThemeButton);
+export default ThemeButton;

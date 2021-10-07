@@ -1,35 +1,32 @@
 import React from "react";
-import { connect } from "react-redux";
 import { logIn, logOut } from "../Redux/Actions";
+import { useSelector, useDispatch } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (e) => dispatch(logIn(e)),
-    logout: () => dispatch(logOut()),
-  };
-};
-
-const LoginForm = ({ login, logout }) => {
+const LoginForm = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const onSubmit = (e) => {
     e.preventDefault();
-    logout();
+    dispatch(logOut());
   };
 
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
-        <input onChange={login} type="text" name="username" />
-        <input onChange={login} type="password" name="password" />
+        <input
+          onChange={(e) => dispatch(logIn(e))}
+          type="text"
+          name="username"
+        />
+        <input
+          onChange={(e) => dispatch(logIn(e))}
+          type="password"
+          name="password"
+        />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

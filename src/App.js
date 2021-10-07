@@ -5,14 +5,10 @@ import LoginForm from "./Components/LoginForm";
 import ThemeButton from "./Components/ThemeButton.js";
 import UserData from "./Components/UserData";
 import Container from "./StyledComponents/Container.js";
+import { useSelector } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    theme: state.theme,
-  };
-};
-
-function App({ theme }) {
+function App() {
+  const theme = useSelector((state) => state.theme);
   return (
     <Container theme={theme}>
       <ThemeButton />
@@ -23,4 +19,4 @@ function App({ theme }) {
   );
 }
 
-export default connect(mapStateToProps)(App);
+export default App;

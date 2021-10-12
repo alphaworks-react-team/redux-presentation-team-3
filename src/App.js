@@ -1,19 +1,35 @@
-import logo from "./logo.svg";
-import { Provider, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import "./App.css";
+import ApiUsers from "./Components/ApiUsers";
+import LoginForm from "./Components/LoginForm";
 import ThemeButton from "./Components/ThemeButton.js";
-import Container from "./StyledComponents/Container.js"; 
+import UserData from "./Components/UserData";
+import { Container } from "./StyledComponents/Container.js";
 
-function App() {
+const mapStateToProps = (state) => {
+  return {
+    theme: state.theme,
+  };
+};
 
-  const theme = useSelector(state=>state.theme)
-  
-  
+function App({ theme }) {
   return (
-    <Container theme={theme}>
+    <Container height={"100vh"} theme={theme}>
       <ThemeButton />
+      <Container
+        theme={theme}
+        row
+        alignCenter
+        justifyContent={"space-evenly"}
+        width={"90%"}
+        height={"100vh"}
+      >
+        <LoginForm />
+        <UserData />
+        <ApiUsers />
+      </Container>
     </Container>
   );
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
